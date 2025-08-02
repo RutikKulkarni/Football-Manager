@@ -17,9 +17,8 @@ const PORT = process.env.PORT || 8082;
 app.use(helmet());
 app.use(
   cors({
-    origin:
-      process.env.FRONTEND_URL || "https://football-manager-opal.vercel.app/",
-    credentials: true,
+    origin: "*",
+    // credentials: true,
   })
 );
 
