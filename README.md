@@ -34,6 +34,12 @@ The application fulfills the following core product requirements:
 
 Follow these steps to get the Football Manager application running locally.
 
+### Prerequisites
+
+- Node.js (v18 or higher recommended)
+- npm (v8 or higher recommended)
+- MongoDB (local instance or a cloud-hosted service like MongoDB Atlas)
+
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/RutikKulkarni/Football-Manager.git
