@@ -33,13 +33,6 @@ app.use("/api/transfer", transferRoutes);
 
 app.use(errorHandler);
 
-app.use("*", (req, res) => {
-  res.status(404).json({
-    message: "Route not found",
-    path: req.originalUrl,
-  });
-});
-
 const startServer = async () => {
   try {
     await connectDB();
