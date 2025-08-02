@@ -15,12 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 8082;
 
 app.use(helmet());
-app.use(
-  cors({
-    origin: "*",
-    // credentials: true,
-  })
-);
+app.use(cors());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
