@@ -8,7 +8,6 @@ import { errorHandler } from "./middleware/errorHandler";
 import authRoutes from "./routes/auth";
 import teamRoutes from "./routes/team";
 import transferRoutes from "./routes/transfer";
-import { initializeQueue } from "./services/queueService";
 
 dotenv.config();
 
@@ -26,6 +25,7 @@ app.use(
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
+  message: "Too many requests from this IP, please try again later.",
 });
 app.use(limiter);
 
@@ -39,16 +39,20 @@ app.use("/api/transfer", transferRoutes);
 app.use(errorHandler);
 
 app.use("*", (req, res) => {
-  res.status(404).json({ message: "Route not found" });
+  res.status(404).json({
+    message: "Route not found",
+    path: req.originalUrl,
+  });
 });
 
 const startServer = async () => {
   try {
     await connectDB();
-    await initializeQueue();
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
+      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+      console.log(`To seed the database with sample data, run: npm run seed`);
     });
   } catch (error) {
     console.error("Failed to start server:", error);
